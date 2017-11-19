@@ -1,6 +1,6 @@
 {
   "name": "predicate-dispatch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Promise-accepting implementation of predicate dispatch",
   "main": "./lib",
   "scripts": {
@@ -11,8 +11,8 @@
     "test:mocha": "mocha ./tests/*.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/imbcmdth/predicate-dispatch.git"
+    "type": "git",
+    "url": "https://github.com/imbcmdth/predicate-dispatch.git"
   },
   "author": "Jon-Carlos Rivera",
   "license": "ISC",
