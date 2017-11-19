@@ -15,7 +15,7 @@
     "url": "https://github.com/imbcmdth/predicate-dispatch.git"
   },
   "author": "Jon-Carlos Rivera",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.1",
     "ramda": "^0.25.0"
