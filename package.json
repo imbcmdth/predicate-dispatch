@@ -1,6 +1,6 @@
 {
   "name": "predicate-dispatch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Promise-accepting implementation of predicate dispatch",
   "main": "./lib",
   "scripts": {
