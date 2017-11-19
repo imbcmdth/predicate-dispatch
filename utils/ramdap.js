@@ -20,10 +20,23 @@ const asPromise = (fn) => compose(B.resolve, fn);
 
 const getP = curry((prop, map) => B.all([prop, map]).then(([prop, map]) => B.resolve(map.get(prop))));
 
+const lensP = curryN(2, function lens(getter, setter) {
+  return function (toFunctorFn) {
+    return function (target) {
+      return map(function (focus) {
+        return B.resolve(focus)
+          .catch((error) => setter(error, target))
+          .then((focus) => setter(focus, target));
+      }, toFunctorFn(getter(target)));
+    };
+  };
+});
+
 module.exports = merge(require('ramda'), {
   propP,
   getP,
   assocP,
+  lensP,
   assocFnP,
   asPromise
 });

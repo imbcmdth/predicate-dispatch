@@ -23,9 +23,9 @@ describe('dispatch function', function () {
 
   it('can return a promise', function () {
     const testCase = dispatch(R.identity, () => (v) => {
-        expect(v).to.eql(nestedObj);
-        return B.resolve('ok');
-      });
+      expect(v).to.eql(nestedObj);
+      return B.resolve('ok');
+    });
 
     return testCase(nestedObj).then((retVal) => {
       expect(retVal).to.equal('ok');

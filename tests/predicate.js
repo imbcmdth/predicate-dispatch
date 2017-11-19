@@ -23,13 +23,13 @@ describe('predicate function', function () {
 
   it('can return a promise', function () {
     const testCase = dispatch((v) => {
-        expect(v).to.eql(nestedObj);
-        return B.resolve('foo');
-      }, (p) => (v) => {
-        expect(p).to.equal('foo');
-        expect(v).to.eql(nestedObj);
-        return 'ok';
-      });
+      expect(v).to.eql(nestedObj);
+      return B.resolve('foo');
+    }, (p) => (v) => {
+      expect(p).to.equal('foo');
+      expect(v).to.eql(nestedObj);
+      return 'ok';
+    });
 
     return testCase(nestedObj).then((retVal) => {
       expect(retVal).to.equal('ok');
