@@ -1,3 +1,4 @@
+const B = require('bluebird');
 const expect = require('chai').expect;
 const {dispatch, ramdap: R} = require('../');
 
@@ -37,7 +38,7 @@ describe('lenses', function () {
     // will still set the return value of the dispatch chain to the
     // return value of the last dispatch handler
     it('using a getter lens only', function () {
-      const lens = R.lens(R.prop('sub'), R.identity);
+      const lens = R.lensP(R.prop('sub'), R.identity);
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
         return 'ok';
@@ -53,7 +54,7 @@ describe('lenses', function () {
     // object with the final level equal to the return type of the last
     // dispatch handler
     it('using a setter lens only', function () {
-      const lens = R.lens(R.identity, R.assoc('sub'));
+      const lens = R.lensP(R.identity, R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.eql(nestedObj);
         return 'ok';
@@ -69,7 +70,7 @@ describe('lenses', function () {
     // object with the final level equal to the return type of the
     // last dispatch handler
     it('using both a getter/setter lens', function () {
-      const lens = R.lens(R.prop('sub'), R.assoc('sub'));
+      const lens = R.lensP(R.prop('sub'), R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
         return 'ok';
@@ -99,7 +100,7 @@ describe('lenses', function () {
     };
 
     it('lens itself is a promise', function () {
-      const lens = Promise.resolve(R.lens(R.prop('sub'), R.assoc('sub')));
+      const lens = B.resolve(R.lensP(R.prop('sub'), R.assoc('sub')));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
         return 'ok';
@@ -111,10 +112,10 @@ describe('lenses', function () {
     });
 
     it('last dispatch returns a promise', function () {
-      const lens = R.lens(R.prop('sub'), R.assoc('sub'));
+      const lens = R.lensP(R.prop('sub'), R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
-        return Promise.resolve('ok');
+        return B.resolve('ok');
       }, lens), lens), lens);
 
       return testCase(nestedObj).then((retVal) => {
@@ -123,17 +124,17 @@ describe('lenses', function () {
     });
 
     it('lens works with promise values', function () {
-      const nestedObj = Promise.resolve({
-        sub: Promise.resolve({
-          sub: Promise.resolve({
-            sub: Promise.resolve('inner_value')
+      const nestedObj = B.resolve({
+        sub: B.resolve({
+          sub: B.resolve({
+            sub: B.resolve('inner_value')
           })
         })
       });
-      const lens = R.lens(R.prop('sub'), R.assoc('sub'));
+      const lens = R.lensP(R.prop('sub'), R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
-        return Promise.resolve('ok');
+        return B.resolve('ok');
       }, lens), lens), lens);
 
       return testCase(nestedObj).then((retVal) => {
@@ -164,7 +165,7 @@ describe('lenses', function () {
     });
 
     it('using a getter lens only', function () {
-      const lens = R.lens(R.prop('sub'), R.identity);
+      const lens = R.lensP(R.prop('sub'), R.identity);
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
         throw new Error('fail');
@@ -176,7 +177,7 @@ describe('lenses', function () {
     });
 
     it('using a setter lens only', function () {
-      const lens = R.lens(R.identity, R.assoc('sub'));
+      const lens = R.lensP(R.identity, R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.eql(nestedObj);
         throw new Error('fail');
@@ -188,7 +189,7 @@ describe('lenses', function () {
     });
 
     it('using both a getter/setter lens', function () {
-      const lens = R.lens(R.prop('sub'), R.assoc('sub'));
+      const lens = R.lensP(R.prop('sub'), R.assoc('sub'));
       const testCase = noPred(() => noPred(() => noPred(() => (v) => {
         expect(v).to.equal('inner_value');
         throw new Error('fail');

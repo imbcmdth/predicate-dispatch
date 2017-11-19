@@ -1,3 +1,4 @@
+const B = require('bluebird');
 const expect = require('chai').expect;
 const {dispatch, ramdap: R} = require('../');
 
@@ -9,7 +10,7 @@ describe('predicate function', function () {
   };
 
   it('can be a promise', function () {
-    const testCase = dispatch(Promise.resolve(R.prop('sub')), (p) => (v) => {
+    const testCase = dispatch(B.resolve(R.prop('sub')), (p) => (v) => {
       expect(p).to.eql(nestedObj.sub);
       expect(v).to.eql(nestedObj);
       return 'ok';
@@ -23,7 +24,7 @@ describe('predicate function', function () {
   it('can return a promise', function () {
     const testCase = dispatch((v) => {
         expect(v).to.eql(nestedObj);
-        return Promise.resolve('foo');
+        return B.resolve('foo');
       }, (p) => (v) => {
         expect(p).to.equal('foo');
         expect(v).to.eql(nestedObj);
