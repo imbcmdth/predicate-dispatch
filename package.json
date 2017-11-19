@@ -10,6 +10,10 @@
     "test:lint": "eslint ./lib/*.js ./tests/*.js",
     "test:mocha": "mocha ./tests/*.js"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/imbcmdth/predicate-dispatch.git"
+  },
   "author": "Jon-Carlos Rivera",
   "license": "ISC",
   "dependencies": {
