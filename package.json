@@ -4,7 +4,7 @@
   "description": "Promise-accepting implementation of predicate dispatch",
   "main": "./lib",
   "scripts": {
-    "preversion": "npm-run-all test:* docs",
+    "preversion": "npm-run-all test:*",
     "docs": "jsdoc ./lib/*.js -R ./README.md -d ./docs",
     "test": "npm-run-all test:*",
     "test:lint": "eslint ./lib/*.js ./tests/*.js",
