@@ -1,4 +1,4 @@
-const {assoc, curry, curryN, compose, merge, map} = require('ramda');
+const {assoc, curry, curryN, compose, merge, map, set, view} = require('ramda');
 const B = require('bluebird');
 
 // Add a couple of promise-handling extensions to Ramda functions
@@ -33,9 +33,9 @@ const lensP = curryN(2, function lens(getter, setter) {
 });
 
 const overP = curry((lens, fn, obj) => Promise.all([lens, fn, obj])
-    .then(([lens, fn, obj]) => Promise.all([lens, fn, obj, R.view(lens, obj)]))
+    .then(([lens, fn, obj]) => Promise.all([lens, fn, obj, view(lens, obj)]))
     .then(([lens, fn, obj, view]) => Promise.all([lens, obj, fn(view)]))
-    .then(([lens, obj, retVal]) => R.set(lens, retVal, obj)));
+    .then(([lens, obj, retVal]) => set(lens, retVal, obj)));
 
 module.exports = merge(require('ramda'), {
   propP,
