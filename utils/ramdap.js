@@ -32,11 +32,17 @@ const lensP = curryN(2, function lens(getter, setter) {
   };
 });
 
+const overP = curry((lens, fn, obj) => Promise.all([lens, fn, obj])
+    .then(([lens, fn, obj]) => Promise.all([lens, fn, obj, R.view(lens, obj)]))
+    .then(([lens, fn, obj, view]) => Promise.all([lens, obj, fn(view)]))
+    .then(([lens, obj, retVal]) => R.set(lens, retVal, obj)));
+
 module.exports = merge(require('ramda'), {
   propP,
   getP,
   assocP,
   lensP,
+  overP,
   assocFnP,
   asPromise
 });
