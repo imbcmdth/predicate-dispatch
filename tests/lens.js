@@ -159,8 +159,8 @@ describe('lenses', function () {
         throw new Error('fail');
       })));
 
-      return testCase(nestedObj).then((retVal) => {
-        expect(retVal).to.be.a('error');
+      return testCase(nestedObj).catch((error) => {
+        expect(error).to.be.a('error');
       });
     });
 
@@ -171,8 +171,8 @@ describe('lenses', function () {
         throw new Error('fail');
       }, lens), lens), lens);
 
-      return testCase(nestedObj).then((retVal) => {
-        expect(retVal).to.be.a('error');
+      return testCase(nestedObj).catch((error) => {
+        expect(error).to.be.a('error');
       });
     });
 
@@ -183,8 +183,8 @@ describe('lenses', function () {
         throw new Error('fail');
       }, lens), lens), lens);
 
-      return testCase(nestedObj).then((retVal) => {
-        expect(retVal.sub.sub.sub).to.be.a('error');
+      return testCase(nestedObj).catch((error) => {
+        expect(error).to.be.a('error');
       });
     });
 
@@ -195,8 +195,8 @@ describe('lenses', function () {
         throw new Error('fail');
       }, lens), lens), lens);
 
-      return testCase(nestedObj).then((retVal) => {
-        expect(retVal.sub.sub.sub).to.be.a('error');
+      return testCase(nestedObj).catch((error) => {
+        expect(error).to.be.a('error');
       });
     });
   });

@@ -37,12 +37,15 @@ const overP = curry((lens, fn, obj) => Promise.all([lens, fn, obj])
     .then(([lens, fn, obj, view]) => Promise.all([lens, obj, fn(view)]))
     .then(([lens, obj, retVal]) => set(lens, retVal, obj)));
 
+const propSatisfiesP = curry((fn, prop, obj) => B.all([fn, propP(prop, obj)]).then(([fn, val]) => fn(val)));
+
 module.exports = merge(require('ramda'), {
   propP,
   getP,
   assocP,
   lensP,
   overP,
+  propSatisfiesP,
   assocFnP,
   asPromise
 });
