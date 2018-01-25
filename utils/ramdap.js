@@ -1,10 +1,13 @@
-const {assoc, curry, curryN, compose, merge, map, set, view} = require('ramda');
+const {__, assoc, curry, curryN, compose, merge, map, set, view} = require('ramda');
 const B = require('bluebird');
 
 // Add a couple of promise-handling extensions to Ramda functions
 
 // Like Ramda.prop except it accepts promises OR values for every argument and _always_ returns a promise
 const propP = curry((prop, obj) => B.all([prop, obj]).then(([prop, obj]) => B.resolve(obj[prop])));
+
+// Like Ramda.props except it accepts promises OR values for every argument and _always_ returns a promise
+const propsP = curry((props, obj) => B.all([props, obj]).then(([props, obj]) => B.all(props.map(propP(__, obj)))));
 
 // Like Ramda.assoc except it accepts promises OR values for every argument and _always_ returns a promise
 const assocP = curry((prop, val, obj) => B.all([prop, val, obj]).then(([prop, val, obj]) => assoc(prop, val, obj)));
@@ -41,6 +44,7 @@ const propSatisfiesP = curry((fn, prop, obj) => B.all([fn, propP(prop, obj)]).th
 
 module.exports = merge(require('ramda'), {
   propP,
+  propsP,
   getP,
   assocP,
   lensP,

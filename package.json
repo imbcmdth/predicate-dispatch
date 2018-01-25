@@ -8,7 +8,7 @@
     "docs": "jsdoc ./lib/*.js -R ./README.md -d ./docs",
     "test": "npm-run-all test:*",
     "test:lint": "eslint ./lib/*.js ./tests/*.js",
-    "test:mocha": "mocha ./tests/*.js"
+    "test:mocha": "mocha --recursive ./tests"
   },
   "repository": {
     "type": "git",
