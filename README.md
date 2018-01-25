@@ -1,4 +1,4 @@
-# predicate-dispatch
+# predicate-dispatch [![Build Status](https://travis-ci.org/imbcmdth/predicate-dispatch.svg?branch=master)](https://travis-ci.org/imbcmdth/predicate-dispatch)
 
 A nice little function for creating [predicate dispatching](https://en.wikipedia.org/wiki/Predicate_dispatch) with the added bonus of supported promises for every parameter, return value, and object that they work with!
 
